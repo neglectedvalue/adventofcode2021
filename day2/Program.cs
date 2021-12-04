@@ -60,7 +60,7 @@ namespace day2
             int depth = 0;
             int aim = 0;
 
-                        foreach (var item in pairs)
+            foreach (var item in pairs)
             {
                 switch (item.Item1)
                 {
