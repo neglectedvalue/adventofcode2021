@@ -44,13 +44,18 @@ namespace day3
             Console.WriteLine(gamma * eps);
 
             // Part Two
-            var o2 = Convert.ToUInt32(GetResultedCollection(content, 0, true, (ones, zeros) => ones.Count() > zeros.Count()).First(), 2);
-            var co2 = Convert.ToUInt32(GetResultedCollection(content, 0, false, (ones, zeros) => ones.Count() < zeros.Count()).First(), 2);
+            Func<IEnumerable<string>, IEnumerable<string>, bool> o2Comparator = (ones, zeros) => ones.Count() > zeros.Count() || (ones.Count() == zeros.Count());
+            var o2 = Convert.ToUInt32(GetResultedCollection(content, 0, o2Comparator).First(), 2);
+
+            Func<IEnumerable<string>, IEnumerable<string>, bool> co2Comparator = (ones, zeros) => ones.Count() < zeros.Count() || ((ones.Count() == zeros.Count() && false));
+            var co2 = Convert.ToUInt32(GetResultedCollection(content, 0, co2Comparator).First(), 2);
 
             Console.WriteLine(o2 * co2);
         }
 
-        private static string[] GetResultedCollection(IEnumerable<string> collection, int index, bool isO2,  Func<IEnumerable<string>, IEnumerable<string>, bool> comparison)
+        private static string[] GetResultedCollection(IEnumerable<string> collection,
+            int index,
+            Func<IEnumerable<string>, IEnumerable<string>, bool> comparator)
         {
             if(collection.Count() == 1)
             {
@@ -60,11 +65,11 @@ namespace day3
             var zeros = collection.Where( x => x[index] == '0');
             var ones = collection.Where( x => x[index] == '1');
 
-            if(comparison(ones, zeros) || ((ones.Count() == zeros.Count()) && isO2)){
-                return GetResultedCollection(ones, index + 1, isO2, comparison);
+            if(comparator(ones, zeros)) {
+                return GetResultedCollection(ones, index + 1, comparator);
             }
             else {
-                return GetResultedCollection(zeros, index + 1, isO2, comparison);
+                return GetResultedCollection(zeros, index + 1, comparator);
             }
 
         }
