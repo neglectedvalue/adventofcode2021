@@ -64,7 +64,8 @@ namespace day4
         public void PrintDebug(){
             for(int x = 1; x < 6; ++x) {
                 for(int y = 1; y < 6; ++y) {
-                    Console.Write($"{_table[x,y].Number} ");                      
+                    string formattedOutput = _table[x,y].Checked ? $"({_table[x,y].Number}) " : $"{_table[x,y].Number} ";
+                    Console.Write(formattedOutput);                      
                 }
                 Console.WriteLine();
             }

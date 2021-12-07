@@ -14,7 +14,9 @@ namespace day4
         14 21 16 12  6";
         BingoMatrix matrix = new BingoMatrix(rawData);
 
+            matrix.CheckIfFound(3);
             matrix.PrintDebug();
+
         }
     }
 }
