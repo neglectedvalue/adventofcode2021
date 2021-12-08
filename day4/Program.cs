@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace day4
@@ -14,9 +15,24 @@ namespace day4
 
             BingoManager manager = new BingoManager(rawData);
 
-            var win = manager.Play();
+            // Part One
+            /*var (winingNumber, winingMatrix) = manager.Play();
 
-            win.PrintDebug();
+            if(winingNumber != -1)
+            {
+                var multy = winingMatrix.GetNumbers(false).Sum();
+                Console.WriteLine(multy * winingNumber);
+            }*/
+
+            // Part Two
+
+            var res = manager.PlayTillEnd();
+
+            res.Last().Item2.PrintDebug();
+
+            var multy = res.Last().Item2.GetNumbers(false).Sum();
+            Console.WriteLine(multy * res.Last().Item1);
+            
         }
     }
 }

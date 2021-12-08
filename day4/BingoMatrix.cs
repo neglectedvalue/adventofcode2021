@@ -27,6 +27,8 @@ namespace day4
 
         private const int WiningResult = 5;
 
+        public BingoMatrix(){}
+
         public BingoMatrix(string rawData)
         {
             if(string.IsNullOrWhiteSpace(rawData))

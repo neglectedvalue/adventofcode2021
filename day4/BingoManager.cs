@@ -31,7 +31,32 @@ namespace day4
             }
         }
 
-        public BingoMatrix Play()
+        public void RemoveWiningMatrix(BingoMatrix matrix){
+            _participants.Remove(matrix);
+        }
+
+        public List<(int, BingoMatrix)> PlayTillEnd(){
+            List<(int, BingoMatrix)> winingSeries = new List<(int, BingoMatrix)>();
+
+            foreach (var number in _inputFlow)
+            {
+                foreach (var item in _participants)
+                {
+                    if(winingSeries.Any( x => x.Item2 == item))
+                        continue;
+                    item.CheckIfFound(number);
+                    if(item.IsWinnable)
+                    {
+                        winingSeries.Add((number, item));
+                    }
+                }
+            }
+
+            return winingSeries;
+        }
+
+
+        public (int, BingoMatrix) Play()
         {
             foreach (var number in _inputFlow)
             {
@@ -40,12 +65,12 @@ namespace day4
                     item.CheckIfFound(number);
                     if(item.IsWinnable)
                     {
-                        return item;
+                        return (number, item);
                     }
                 }
             }
 
-            return null;
+            return (-1, null);
         }
 
     }
